@@ -54,9 +54,15 @@ DOWNLOADER_MIDDLEWARES = {
     #"demo.middlewares.DemoDownloaderMiddleware": 543,
     "demo.middlewares.ScrapeOpsFakeUserAgentMiddleware": 400,
     "demo.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 410,
+    'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
     
 }
 
+
+EXTENSIONS = {
+    'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
+}
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 #EXTENSIONS = {
