@@ -1,9 +1,5 @@
 import scrapy
-# download scrapy: pip install scrapy
 from demo.items import VietstockItem
-import random
-
-# get VietstockItem in items.py
 
 class VietstockSpider(scrapy.Spider):
     name = 'vietstock'
@@ -11,18 +7,6 @@ class VietstockSpider(scrapy.Spider):
     start_urls = ['https://vietstock.vn/']
     #scrapy shell https://vietstock.vn/
 
-    custom_settings = {
-        'FEED': {
-            'vietstock.json' : {
-                'format': 'json',
-                'encoding': 'utf8',
-                'overwrite': True,
-            }
-        }
-    }
-
-
-    
     def parse(self, response):
         news = response.css('div.single_post_text')
         for new in news:
@@ -43,12 +27,16 @@ class VietstockSpider(scrapy.Spider):
         new = response.css("div.article-content")[0]
         imgages = new.css("img").getall()
         vietstock_item = VietstockItem()
+
         vietstock_item['url'] = response.url,
         vietstock_item['title'] = new.css("h1.article-title ::text").get(),
-        vietstock_item['brief'] = new.css("p.pHead ::text").getall(),
-        vietstock_item['content'] = new.css("p.pBody ::text").getall(),
+
+        brief = new.css("p.pHead ::text").get(),
+        content_array = new.css("p.pBody ::text").getall(),
+        vietstock_item['content'] = brief[0] + ' '.join(content_array[0])
+
         vietstock_item['imgage_link'] = [imgage.split('src="')[1].split('"')[0] for imgage in imgages[:3]],
-        
+        vietstock_item['summarized'] = False
         yield vietstock_item
         
 

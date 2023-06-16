@@ -71,9 +71,10 @@ EXTENSIONS = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
+ITEM_PIPELINES = {
 #    "demo.pipelines.DemoPipeline": 300,
-#}
+    "demo.pipelines.MongoDBPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -106,3 +107,6 @@ SCRAPEOPS_API_KEY = "cc94e161-f49c-4ee8-aa72-d1983bc2c05a"
 SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = "https://headers.scrapeops.io/v1/user-agents"
 SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
 SCRAPEOPS_NUM_RESULTS = 50
+
+MONGODB_URI = "mongodb+srv://truongbodoi821:iCNPwul82lZuC4DM@cluster0.9fcp1gg.mongodb.net/?retryWrites=true&w=majority"
+MONGODB_DATABASE = "News"
